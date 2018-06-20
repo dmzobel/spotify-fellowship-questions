@@ -27,9 +27,6 @@ function changePossibilities(target, denoms) {
 
       if (denom === target) combinations++;
       else if (denom < target) {
-        // if (target % denom === 0) {
-        //   combinations++;
-        // }
         const diff = target - denom;
         combinations += changePossibilities(diff, sorted.slice(0, i + 1));
       }
@@ -40,5 +37,5 @@ function changePossibilities(target, denoms) {
   }
 }
 
-changePossibilities(4, [1, 2, 3]);
+// changePossibilities(4, [1, 2, 3]);
 // changePossibilities(6, [1, 5]);
