@@ -27,9 +27,10 @@ const decodeString = string => {
       chars.pop(); // to get rid of the opening bracket
 
       substr += decoded;
+      decoded = substr;
       const repeats = nums.pop();
-      for (let j = 0; j < repeats; j++) {
-        decoded = substr + decoded;
+      for (let j = 1; j < repeats; j++) {
+        decoded += substr;
       }
     } else {
       chars.push(item);
