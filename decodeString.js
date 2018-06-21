@@ -9,22 +9,48 @@ For s = "2[b3[a]]", the output should be decodeString(s) = "baaabaaa"
 
 const decodeString = string => {
   let decoded = '';
-  const matchArr = string.match(/\d.*?\]+/g)[0]; // need the first element of the array
-  if (matchArr) {
-    let substring = matchArr[0];
-    const multiplier = +substring[0];
-    const end = substring.length - 1;
-    const newString = substring.slice(2, end);
+  const nums = [];
+  const chars = [];
 
-    for (let i = 0; i < multiplier; i++) {
-      decoded += decodeString(newString);
+  for (let i = 0; i < string.length; i++) {
+    const item = string[i];
+
+    if (+item) {
+      nums.push(+item);
+    } else if (item === ']') {
+      let pos = chars.length - 1;
+      let substr = '';
+      while (chars[pos] !== '[') {
+        substr = chars.pop() + substr;
+        pos--;
+      }
+      chars.pop(); // to get rid of the opening bracket
+
+      substr += decoded;
+      const repeats = nums.pop();
+      for (let j = 0; j < repeats; j++) {
+        decoded = substr + decoded;
+      }
+    } else {
+      chars.push(item);
     }
-  } else {
-    decoded += string;
   }
 
   return decoded;
+  // const matchArr = string.match(/\d.*?\]+/g)[0]; // need the first element of the array
+  // if (matchArr) {
+  //   let substring = matchArr[0];
+  //   const multiplier = +substring[0];
+  //   const end = substring.length - 1;
+  //   const newString = substring.slice(2, end);
+
+  //   for (let i = 0; i < multiplier; i++) {
+  //     decoded += decodeString(newString);
+  //   }
+  // } else {
+  //   decoded += string;
+  // }
 };
 
-// console.log(decodeString('4[ab]'));
+// decodeString('4[ab]');
 decodeString('2[b3[a]]');

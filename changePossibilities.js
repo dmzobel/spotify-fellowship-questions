@@ -29,6 +29,7 @@ function changePossibilities(target, denoms) {
       else if (denom < target) {
         const diff = target - denom;
         combinations += changePossibilities(diff, sorted.slice(0, i + 1));
+        // by slicing on `i + 1`, this ensures that array remains unchanged in the beginning of the recursive call, but get progressively smaller as we iterate through the array
       }
     }
 
